@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+
+  uptime:
+    container_name: uptime
+    image: uptime:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - uptime-mongo
+      - uptime-redis
+    environment:
+      - MONGODB_URI=mongodb://uptime-mongo:27017/uptime-monitoring
+      - REDIS_HOST=uptime-redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=bostatasksercet
+      - JWT_EXPIRATION_TIME=36000
+      - EMAIL_HOST=smtp.mailtrap.io
+      - EMAIL_PORT=2525
+      - EMAIL_USER=93820dd020c340
+      - EMAIL_PASSWORD=39ddb4ca78b27f
+
+  uptime-mongo:
+    image: mongo
+    container_name: uptime-mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - uptime-db:/data/db
+
+
+  uptime-redis:
+    image: redis
+    container_name: uptime-redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+volumes:
+  uptime-db:
+    name: uptime-db
