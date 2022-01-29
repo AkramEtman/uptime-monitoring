@@ -27,7 +27,11 @@ export class TasksService {
 	}
 
 	deleteCheckInterval(name: string) {
-		this.schedulerRegistry.deleteInterval(name);
-		this.logger.warn(`Interval ${name} deleted!`);
+		try{
+			this.schedulerRegistry.deleteInterval(name)
+			this.logger.warn(`Interval ${name} deleted!`);	
+		}catch(err:any){
+			this.logger.warn(`Interval ${name} was not found!`);	
+		}
 	}
 }

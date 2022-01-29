@@ -33,8 +33,8 @@ export class ChecksController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCheckDto: UpdateCheckDto,@User()user:ITokenPayload) {
-    updateCheckDto.user = user._id
-    return this.checksService.update(id, updateCheckDto);
+    let query = { id: id, user: user._id }
+    return this.checksService.update(query, updateCheckDto);
   }
 
   @Delete(':id')

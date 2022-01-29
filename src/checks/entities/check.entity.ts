@@ -34,8 +34,7 @@ class CheckHeader {
 export class Check {
   
   @Prop({ 
-    required: true,
-    unique: true
+    required: true
   })
   name: string;
 

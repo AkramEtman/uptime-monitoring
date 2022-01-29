@@ -43,10 +43,10 @@ export class ChecksService implements OnApplicationBootstrap {
     }).exec();
   }
 
-  async update(id: string, updateCheckDto: UpdateCheckDto) {
+  async update(query:any, updateCheckDto: UpdateCheckDto) {
     const updatedCheck = await this.checkModel.findOneAndUpdate({
-        user: new mongoose.Types.ObjectId(updateCheckDto.user),
-        _id: new mongoose.Types.ObjectId(id)
+        user: new mongoose.Types.ObjectId(query.user),
+        _id: new mongoose.Types.ObjectId(query.id)
       }, updateCheckDto,
       { returnDocument: 'after' }
     );
