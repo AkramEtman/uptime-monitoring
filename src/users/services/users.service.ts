@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -15,18 +15,20 @@ export class UsersService {
     @InjectModel(User.name) private readonly userModel: mongoose.Model<UserDocument>,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto) {
     const { password, email, username, notification } =createUserDto;
     const hashedPassword = await bcrypt.hash(password, this.SALT_Rounds);
-    let user =  await this.userModel.create({
+    await this.userModel.create({
       email: email?.trim().toLowerCase(),
       username: username.trim(),
       password: hashedPassword,
       notification 
+    }).then( (user:User) =>{
+      user.password = undefined
+      return user  
+    }).catch((err)=>{
+      throw new BadRequestException("please use anthor value for "+ Object.keys(err.keyValue))
     })
-
-    user.password = undefined
-    return user
   }
 
   async findOneByEmail(email:string){
