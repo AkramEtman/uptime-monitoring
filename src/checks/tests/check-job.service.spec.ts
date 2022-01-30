@@ -8,6 +8,8 @@ import { CheckStatus } from '../utils/enums';
 import { NotificationsService } from '../../notifications/services/notifications.service';
 import { Check } from '../entities/check.entity';
 import { mockedNotificationsService } from '../../notifications/tests/mocks/notifications.service';
+import { CheckAssertDto, CheckHeaderDto } from '../dto/check-request.dto';
+import { AxiosResponse } from 'axios';
 
 
 describe('ChecksService', () => {
@@ -111,46 +113,46 @@ describe('ChecksService', () => {
 
 	})
 
-	// describe('getCheckStatus',()=>{
+	describe('getCheckStatus',()=>{
 		
-	// 	it('should be return status Up with statusCode as input', () => {
-	// 		const assert:CheckAssertDto = { statusCode: 302 }
-	// 		const response:AxiosResponse = { status: 302,data: {},statusText: 'OK',headers: {},config: {}} 
-	// 		expect(checkJobService.getCheckStatus( assert, response )).toEqual( CheckStatus.UP );
-	// 	});
+		it('should be return status Up with statusCode as input', () => {
+			const assert:CheckAssertDto = { statusCode: 302 }
+			const response:AxiosResponse = { status: 302,data: {},statusText: 'OK',headers: {},config: {}} 
+			expect(checkJobService.getCheckStatus( assert, response )).toEqual( CheckStatus.UP );
+		});
 	
-	// 	it('should be return status Up without statusCode as input', () => {
-	// 		let assert:CheckAssertDto
-	// 		const response:AxiosResponse = { status: 200,data: {},statusText: 'OK',headers: {},config: {}} 
-	// 		expect(checkJobService.getCheckStatus( assert, response )).toEqual( CheckStatus.UP );
-	// 	});
+		it('should be return status Up without statusCode as input', () => {
+			let assert:CheckAssertDto
+			const response:AxiosResponse = { status: 200,data: {},statusText: 'OK',headers: {},config: {}} 
+			expect(checkJobService.getCheckStatus( assert, response )).toEqual( CheckStatus.UP );
+		});
 
-	// 	it('should be return status Down with statusCode as input', () => {
-	// 		const assert:CheckAssertDto = { statusCode: 302 }
-	// 		const response:AxiosResponse = { status: 200,data: {},statusText: 'OK',headers: {},config: {}} 
-	// 		expect(checkJobService.getCheckStatus( assert, response )).toEqual( CheckStatus.DOWN );
-	// 	});
+		it('should be return status Down with statusCode as input', () => {
+			const assert:CheckAssertDto = { statusCode: 302 }
+			const response:AxiosResponse = { status: 200,data: {},statusText: 'OK',headers: {},config: {}} 
+			expect(checkJobService.getCheckStatus( assert, response )).toEqual( CheckStatus.DOWN );
+		});
 
-	// 	it('should be return status Down with statusCode as input', () => {
-	// 		let assert:CheckAssertDto
-	// 		const response:AxiosResponse = { status: 302,data: {},statusText: 'OK',headers: {},config: {}} 
-	// 		expect(checkJobService.getCheckStatus( assert, response )).toEqual( CheckStatus.DOWN );
-	// 	});
-	// })
+		it('should be return status Down with statusCode as input', () => {
+			let assert:CheckAssertDto
+			const response:AxiosResponse = { status: 302,data: {},statusText: 'OK',headers: {},config: {}} 
+			expect(checkJobService.getCheckStatus( assert, response )).toEqual( CheckStatus.DOWN );
+		});
+	})
 
-	// describe('convertHeadersToObject',()=>{
+	describe('convertHeadersToObject',()=>{
 		
-	// 	it('should be return headers as object', () => {
-	// 		const headersArr:CheckHeaderDto[] = [ 
-	// 			{key:"header1",value:"val1"},
-	// 			{key:"header2",value:"val2"}
-	// 		]
-	// 		const headersObject = { 
-	// 			header1 : "val1",
-	// 			header2 : "val2"
-	// 		} 
-	// 		expect(checkJobService.convertHeadersToObject( headersArr )).toEqual( headersObject );
-	// 	});
+		it('should be return headers as object', () => {
+			const headersArr:CheckHeaderDto[] = [ 
+				{key:"header1",value:"val1"},
+				{key:"header2",value:"val2"}
+			]
+			const headersObject = { 
+				header1 : "val1",
+				header2 : "val2"
+			} 
+			expect(checkJobService.convertHeadersToObject( headersArr )).toEqual( headersObject );
+		});
 	
-	// })
+	})
 });
